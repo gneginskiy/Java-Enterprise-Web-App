@@ -3,8 +3,7 @@ package ru.javawebinar.topjava.model;
 import java.time.LocalDateTime;
 
 /**
- * GKislin
- * 11.01.2015.
+ * Created by Greg Neginskiy on 02.09.2016
  */
 public class UserMealWithExceed {
     private final LocalDateTime dateTime;
@@ -20,5 +19,25 @@ public class UserMealWithExceed {
         this.description = description;
         this.calories = calories;
         this.exceed = exceed;
+    }
+
+    public UserMealWithExceed(UserMeal userMeal, boolean exceed) {
+        this(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(), exceed);
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public boolean isExceed() {
+        return exceed;
     }
 }
