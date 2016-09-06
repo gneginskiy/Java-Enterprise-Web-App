@@ -8,11 +8,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.util.TimeUtil.isBetween;
 
 /**
  * Created by Greg Neginskiy on 02.09.2016
+ * Time complexity of both implementations is O(N)
  */
 public class UserMealsUtil {
     public static void main(String[] args) {
@@ -25,8 +27,21 @@ public class UserMealsUtil {
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
         );
         LocalTime startTime = LocalTime.of(7, 0);
-        LocalTime endTime = LocalTime.of(12, 0);
+        LocalTime endTime   = LocalTime.of(12, 0);
         getFilteredWithExceeded(mealList, startTime, endTime, 2000);
+    }
+
+    public static List<UserMealWithExceed> getFilteredWithExceededByStreams(List<UserMeal> mealList, LocalTime startTime,
+                                                                            LocalTime endTime, int caloriesPerDay) {
+        Map<LocalDate, Integer> dayCaloriesSums = mealList.stream()
+                                                                .collect(Collectors.toMap(
+                                                                        um->um.getDateTime().toLocalDate(),
+                                                                        UserMeal::getCalories,
+                                                                        (calCount1,calCount2)->calCount1+calCount2));
+        return mealList.stream()
+                        .filter(um->isBetween(um.getDateTime().toLocalTime(),startTime,endTime))
+                        .map(um->new UserMealWithExceed(um,dayCaloriesSums.get(um.getDateTime().toLocalDate())>caloriesPerDay))
+                        .collect(Collectors.toList());
     }
 
     public static List<UserMealWithExceed> getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime,
