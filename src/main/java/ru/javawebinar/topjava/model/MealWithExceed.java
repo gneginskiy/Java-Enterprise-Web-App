@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
  */
 public class MealWithExceed {
     private final LocalDateTime dateTime;
-    private String fontColor;
     private final String description;
 
     private final int calories;
