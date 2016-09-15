@@ -12,4 +12,6 @@ public interface Repository<T, K> {
     List<T> getAll();
 
     T getById(K idKey);
+
+    void restoreInitial();
 }
