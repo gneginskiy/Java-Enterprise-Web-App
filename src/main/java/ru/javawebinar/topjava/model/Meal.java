@@ -8,8 +8,11 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
-public class Meal {
+public class Meal extends BaseEntity{
     private Integer id;
+
+
+    private Integer userId;
 
     private final LocalDateTime dateTime;
 
@@ -58,6 +61,15 @@ public class Meal {
 
     public boolean isNew() {
         return id == null;
+    }
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

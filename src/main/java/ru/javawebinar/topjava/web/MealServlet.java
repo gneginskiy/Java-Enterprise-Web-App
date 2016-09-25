@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static ru.javawebinar.topjava.repository.UserRepository.MOCK_USER_ID;
+
 /**
  * User: gkislin
  * Date: 19.08.2014
@@ -41,7 +43,7 @@ public class MealServlet extends HttpServlet {
                 Integer.valueOf(request.getParameter("calories")));
 
         LOG.info(meal.isNew() ? "Create {}" : "Update {}", meal);
-        repository.save(meal);
+        repository.save(MOCK_USER_ID,meal);
         response.sendRedirect("meals");
     }
 
@@ -51,19 +53,19 @@ public class MealServlet extends HttpServlet {
         if (action == null) {
             LOG.info("getAll");
             request.setAttribute("mealList",
-                    MealsUtil.getWithExceeded(repository.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                    MealsUtil.getWithExceeded(repository.getAll(MOCK_USER_ID), MealsUtil.DEFAULT_CALORIES_PER_DAY));
             request.getRequestDispatcher("/mealList.jsp").forward(request, response);
 
         } else if ("delete".equals(action)) {
             int id = getId(request);
             LOG.info("Delete {}", id);
-            repository.delete(id);
+            repository.delete(MOCK_USER_ID,id);
             response.sendRedirect("meals");
 
         } else if ("create".equals(action) || "update".equals(action)) {
             final Meal meal = action.equals("create") ?
                     new Meal(LocalDateTime.now().withNano(0).withSecond(0), "", 1000) :
-                    repository.get(getId(request));
+                    repository.get(MOCK_USER_ID,getId(request));
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
         }

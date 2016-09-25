@@ -9,6 +9,8 @@ import java.util.List;
  * Date: 22.08.2014
  */
 public interface UserRepository {
+    public static final int MOCK_USER_ID = 1;
+
     User save(User user);
 
     // false if not found
