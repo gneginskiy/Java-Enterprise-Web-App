@@ -2,7 +2,7 @@ package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.web.meal.MealRestController;
 
 import java.util.Arrays;
 
@@ -15,9 +15,9 @@ public class SpringMain {
         ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
-//        UserRepository userRepository = (UserRepository) appCtx.getBean("mockUserRepository");
-        UserRepository userRepository = appCtx.getBean(UserRepository.class);
-        userRepository.getAll();
+//        UserRepository mealRestController = (UserRepository) appCtx.getBean("mockUserRepository");
+        MealRestController mealRestController = appCtx.getBean(MealRestController.class);
+        mealRestController.getAll().forEach(element-> System.out.println("\n"+element+"\n"));
         appCtx.close();
     }
 }

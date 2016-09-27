@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * GKislin
  * 15.09.2015.
  */
+@Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
@@ -36,11 +38,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(int userId, int id) {
+    public Meal delete(int userId, int id) {
         Meal meal = repository.get(id);
-        if (checkUserId(meal,userId)) {
-            repository.remove(id);
-        }
+        return checkUserId(meal, userId) ? repository.remove(id) : null;
     }
 
     @Override
@@ -53,12 +53,13 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     public Collection<Meal> getAll(int userId) {
         return repository.values().stream()
                 .filter(um -> checkUserId(um, userId))
-                .sorted((meal1, meal2) -> meal2.getDateTime().compareTo(meal1.getDateTime()))
-                .collect(Collectors.toList());
+                .sorted(
+                        (meal1, meal2) ->
+                                meal2.getDateTime().compareTo(meal1.getDateTime())
+                ).collect(Collectors.toList());
     }
 
     private boolean checkUserId(Meal meal, int userId) {
         return meal.getUserId() != null && meal.getUserId() == userId;
     }
 }
-

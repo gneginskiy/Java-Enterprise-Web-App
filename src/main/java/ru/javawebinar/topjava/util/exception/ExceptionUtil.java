@@ -13,6 +13,9 @@ public class ExceptionUtil {
     public static <T> T checkNotFoundWithId(T object, int id) {
         return checkNotFound(object, "id=" + id);
     }
+    public static <T> T checkNotFoundWithId(T object, int id, int userId) {
+        return checkNotFound(object, "id=" + id +" | userId ="+userId);
+    }
 
     public static <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
