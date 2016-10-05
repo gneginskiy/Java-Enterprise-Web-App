@@ -47,12 +47,12 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        Meal mealRef = em.getReference(Meal.class, id);
-        boolean isUserValid = mealRef != null &&
-                              mealRef.getUser()!=null &&
-                              mealRef.getUser().getId()!=null &&
-                              mealRef.getUser().getId() == userId;
-        return isUserValid ? em.find(Meal.class, id) : null;
+        Meal meal = em.find(Meal.class, id);
+        boolean isUserValid = meal != null &&
+                              meal.getUser()!=null &&
+                              meal.getUser().getId()!=null &&
+                              meal.getUser().getId() == userId;
+        return isUserValid ? meal : null;
     }
 
     @Override
