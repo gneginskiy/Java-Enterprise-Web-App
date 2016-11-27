@@ -81,7 +81,7 @@ public class MealServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            LOG.info("getAll");
+            LOG.info("getByUserId");
             request.setAttribute("meals", mealController.getAll());
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
 

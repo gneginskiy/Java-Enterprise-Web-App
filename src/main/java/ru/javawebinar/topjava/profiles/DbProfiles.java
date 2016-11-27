@@ -1,10 +1,10 @@
-package ru.javawebinar.topjava;
+package ru.javawebinar.topjava.profiles;
 
 /**
  * User: gkislin
  * Date: 19.08.2014
  */
-public class Profiles {
+public class DbProfiles {
     public static final String
             POSTGRES = "postgres",
             HSQLDB = "hsqldb",
