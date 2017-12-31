@@ -19,7 +19,7 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN;
 import static ru.javawebinar.topjava.UserTestData.USER;
 
 /**
- * GKislin
+ * greg neginsky
  * 13.03.2015.
  */
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})

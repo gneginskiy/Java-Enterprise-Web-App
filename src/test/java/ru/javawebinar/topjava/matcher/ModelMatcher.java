@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * GKislin
+ * greg neginsky
  * 06.01.2015.
  * <p>
  * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator

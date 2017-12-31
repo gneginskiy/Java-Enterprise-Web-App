@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.util.exception;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 19.08.2014
  */
 public class NotFoundException extends RuntimeException {

@@ -8,7 +8,7 @@ import ru.javawebinar.topjava.repository.UserRepository;
 import java.util.List;
 
 /**
- * GKislin
+ * greg neginsky
  * 27.03.2015.
  */
 
@@ -41,5 +41,10 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         return crudRepository.findAll();
+    }
+
+    @Override
+    public User getWithMeals(int id) {
+        return crudRepository.getWithMeals(id);
     }
 }

@@ -6,7 +6,7 @@ import ru.javawebinar.topjava.model.User;
 import java.util.List;
 
 /**
- * GKislin
+ * greg neginsky
  * 06.03.2015.
  */
 @Controller

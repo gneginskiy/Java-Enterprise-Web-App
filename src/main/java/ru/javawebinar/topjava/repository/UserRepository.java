@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.model.User;
 import java.util.List;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 22.08.2014
  */
 public interface UserRepository {
@@ -21,4 +21,8 @@ public interface UserRepository {
     User getByEmail(String email);
 
     List<User> getAll();
+
+    default User getWithMeals(int id){
+        throw new UnsupportedOperationException();
+    }
 }

@@ -3,7 +3,7 @@ package ru.javawebinar.topjava.to;
 import java.time.LocalDateTime;
 
 /**
- * GKislin
+ * greg neginsky
  * 11.01.2015.
  */
 public class MealWithExceed {

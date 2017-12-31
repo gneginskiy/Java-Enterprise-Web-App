@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.Collection;
 
 /**
- * GKislin
+ * greg neginsky
  * 15.06.2015.
  */
 public interface MealService {
@@ -28,4 +28,6 @@ public interface MealService {
     Meal update(Meal meal, int userId) throws NotFoundException;
 
     Meal save(Meal meal, int userId);
+
+    Meal getWithUser(int id, int userId);
 }

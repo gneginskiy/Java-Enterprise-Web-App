@@ -9,7 +9,7 @@ import ru.javawebinar.topjava.service.UserService;
 import java.util.List;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  */
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -18,7 +18,7 @@ public abstract class AbstractUserController {
     private UserService service;
 
     public List<User> getAll() {
-        log.info("getByUserId");
+        log.info("getAll");
         return service.getAll();
     }
 

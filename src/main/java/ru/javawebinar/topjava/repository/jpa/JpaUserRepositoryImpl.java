@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 29.08.2014
  */
 @Repository

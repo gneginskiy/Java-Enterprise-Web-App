@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * GKislin
+ * greg neginsky
  * 07.01.2015.
  */
 public class TimeUtil {

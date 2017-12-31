@@ -4,7 +4,7 @@ import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 /**
- * GKislin
+ * greg neginsky
  * 06.03.2015.
  */
 public class AuthorizedUser {

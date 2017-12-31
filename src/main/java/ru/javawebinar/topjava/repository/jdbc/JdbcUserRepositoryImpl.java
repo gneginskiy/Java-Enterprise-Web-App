@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 26.08.2014
  */
 

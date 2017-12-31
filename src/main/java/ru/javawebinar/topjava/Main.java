@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 05.08.2015
  *
  * @link http://caloriesmng.herokuapp.com/

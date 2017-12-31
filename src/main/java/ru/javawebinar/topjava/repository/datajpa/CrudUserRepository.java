@@ -10,7 +10,7 @@ import ru.javawebinar.topjava.model.User;
 import java.util.List;
 
 /**
- * gkislin
+ * greg neginsky
  * 02.10.2016
  */
 @Transactional(readOnly = true)
@@ -33,4 +33,6 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     User getByEmail(String email);
 
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.meals WHERE u.id = ?1")
+    User getWithMeals(int id);
 }

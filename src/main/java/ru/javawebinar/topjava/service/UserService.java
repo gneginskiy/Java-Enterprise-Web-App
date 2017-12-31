@@ -7,7 +7,7 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.util.List;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 22.08.2014
  */
 public interface UserService {
@@ -23,6 +23,8 @@ public interface UserService {
     List<User> getAll();
 
     void update(User user);
-    
+
     void evictCache();
+
+    User getWithMeals(int id);
 }

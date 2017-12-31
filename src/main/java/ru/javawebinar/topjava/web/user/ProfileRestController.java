@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.User;
 
 /**
- * GKislin
+ * greg neginsky
  * 06.03.2015.
  */
 @Controller

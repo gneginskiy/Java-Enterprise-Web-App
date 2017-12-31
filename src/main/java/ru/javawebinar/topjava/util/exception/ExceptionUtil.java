@@ -2,7 +2,7 @@ package ru.javawebinar.topjava.util.exception;
 
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 14.05.2014
  */
 public class ExceptionUtil {

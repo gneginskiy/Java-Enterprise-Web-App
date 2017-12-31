@@ -6,7 +6,7 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.*;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 22.08.2014
  * <p>
  * Do not manipulate new (transient) entries in HashSet/HashMap without overriding hashCode

@@ -1,15 +1,17 @@
-package ru.javawebinar.topjava.profiles;
+package ru.javawebinar.topjava;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 19.08.2014
  */
-public class DbProfiles {
+public class Profiles {
     public static final String
             POSTGRES = "postgres",
             HSQLDB = "hsqldb",
             JDBC = "jdbc",
-            JPA = "jpa";
+            JPA = "jpa",
+            DATAJPA = "datajpa";
 
     public static final String ACTIVE_DB = POSTGRES;
+    public static final String DB_IMPLEMENTATION = DATAJPA;
 }

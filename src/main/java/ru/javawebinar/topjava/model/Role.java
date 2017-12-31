@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.model;
 
 /**
- * User: gkislin
+ * User: greg neginsky
  * Date: 22.08.2014
  */
 public enum Role {

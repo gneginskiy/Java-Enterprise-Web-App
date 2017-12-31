@@ -16,7 +16,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * GKislin
+ * greg neginsky
  * 06.03.2015.
  */
 @Controller
@@ -40,7 +40,7 @@ public class MealRestController {
 
     public List<MealWithExceed> getAll() {
         int userId = AuthorizedUser.id();
-        LOG.info("getByUserId for User {}", userId);
+        LOG.info("getAll for User {}", userId);
         return MealsUtil.getWithExceeded(service.getAll(userId), AuthorizedUser.getCaloriesPerDay());
     }
 
@@ -60,7 +60,7 @@ public class MealRestController {
 
     public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         int userId = AuthorizedUser.id();
-        LOG.info("getByUserIdBetweenStartDateAndEndDate dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
+        LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
 
         return MealsUtil.getFilteredWithExceeded(
                 service.getBetweenDates(startDate != null ? startDate : TimeUtil.MIN_DATE, endDate != null ? endDate : TimeUtil.MAX_DATE, userId),
