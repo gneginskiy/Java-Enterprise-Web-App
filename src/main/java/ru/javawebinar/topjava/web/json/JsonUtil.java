@@ -8,10 +8,6 @@ import java.util.List;
 
 import static ru.javawebinar.topjava.web.json.JacksonObjectMapper.getMapper;
 
-/**
- * User: greg neginsky
- * Date: 30.04.2014
- */
 public class JsonUtil {
 
     public static <T> List<T> readValues(String json, Class<T> clazz) {

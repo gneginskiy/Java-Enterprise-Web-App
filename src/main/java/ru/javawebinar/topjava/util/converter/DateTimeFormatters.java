@@ -1,13 +1,15 @@
 package ru.javawebinar.topjava.util.converter;
 
 import org.springframework.format.Formatter;
-import ru.javawebinar.topjava.util.TimeUtil;
 
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 /**
  * greg neginsky
@@ -18,7 +20,7 @@ public class DateTimeFormatters {
 
         @Override
         public LocalDate parse(String text, Locale locale) throws ParseException {
-            return TimeUtil.parseLocalDate(text);
+            return parseLocalDate(text);
         }
 
         @Override
@@ -31,7 +33,7 @@ public class DateTimeFormatters {
 
         @Override
         public LocalTime parse(String text, Locale locale) throws ParseException {
-            return TimeUtil.parseLocalTime(text);
+            return parseLocalTime(text);
         }
 
         @Override

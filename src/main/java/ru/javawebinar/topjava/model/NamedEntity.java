@@ -1,18 +1,15 @@
 package ru.javawebinar.topjava.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-/**
- * User: greg neginsky
- * Date: 22.08.2014
- */
+
 @MappedSuperclass
 public class NamedEntity extends BaseEntity {
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "name", nullable = false)
     protected String name;
 
@@ -34,6 +31,6 @@ public class NamedEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return name;
+        return String.format("Entity %s (%s, '%s')", getClass().getName(), getId(), name);
     }
 }

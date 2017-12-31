@@ -1,17 +1,13 @@
 package ru.javawebinar.topjava;
 
-import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.User;
 
 import java.util.Objects;
 
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
-/**
- * greg neginsky
- * 24.09.2015.
- */
 public class UserTestData {
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 1;

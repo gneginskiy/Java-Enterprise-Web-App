@@ -6,10 +6,6 @@ import ru.javawebinar.topjava.model.Meal;
 
 import java.util.List;
 
-/**
- * greg neginsky
- * 22.07.2015.
- */
 public class JsonUtilTest {
 
     @Test
@@ -24,7 +20,7 @@ public class JsonUtilTest {
     public void testReadWriteValues() throws Exception {
         String json = JsonUtil.writeValue(MealTestData.MEALS);
         System.out.println(json);
-        List<Meal> meal = JsonUtil.readValues(json, Meal.class);
-        MealTestData.MATCHER.assertCollectionEquals(MealTestData.MEALS, meal);
+        List<Meal> meals = JsonUtil.readValues(json, Meal.class);
+        MealTestData.MATCHER.assertCollectionEquals(MealTestData.MEALS, meals);
     }
 }

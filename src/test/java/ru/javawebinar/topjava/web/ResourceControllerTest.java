@@ -8,10 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * greg neginsky
- * 10.04.2015.
- */
 public class ResourceControllerTest extends AbstractControllerTest {
 
     @Test

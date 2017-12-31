@@ -1,21 +1,24 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
+import ru.javawebinar.topjava.to.UserTo;
 
 import java.util.List;
 
-/**
- * User: greg neginsky
- */
+import static ru.javawebinar.topjava.util.ValidationUtil.checkIdConsistent;
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
+
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    public AbstractUserController(UserService service) {
+        this.service = service;
+    }
 
     public List<User> getAll() {
         log.info("getAll");
@@ -23,29 +26,39 @@ public abstract class AbstractUserController {
     }
 
     public User get(int id) {
-        log.info("get " + id);
+        log.info("get {}", id);
         return service.get(id);
     }
 
     public User create(User user) {
-        user.setId(null);
-        log.info("create " + user);
+        log.info("create {}", user);
+        checkNew(user);
         return service.save(user);
     }
 
     public void delete(int id) {
-        log.info("delete " + id);
+        log.info("delete {}", id);
         service.delete(id);
     }
 
     public void update(User user, int id) {
-        user.setId(id);
-        log.info("update " + user);
+        log.info("update {}", user);
+        checkIdConsistent(user, id);
         service.update(user);
     }
 
+    public void update(UserTo userTo) {
+        log.info("update " + userTo);
+        service.update(userTo);
+    }
+
     public User getByMail(String email) {
-        log.info("getByEmail " + email);
+        log.info("getByEmail {}", email);
         return service.getByEmail(email);
+    }
+
+    public void enable(int id, boolean enabled) {
+        log.info((enabled ? "enable " : "disable ") + id);
+        service.enable(id, enabled);
     }
 }
