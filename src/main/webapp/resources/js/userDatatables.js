@@ -1,4 +1,4 @@
-var ajaxUrl = 'ajax/admin/users/';
+var ajaxUrl = "ajax/admin/users/";
 var datatableApi;
 
 function updateTable() {
@@ -9,11 +9,11 @@ function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
     $.ajax({
         url: ajaxUrl + id,
-        type: 'POST',
-        data: 'enabled=' + enabled,
+        type: "POST",
+        data: "enabled=" + enabled,
         success: function () {
-            chkbox.closest('tr').toggleClass('disabled');
-            successNoty(enabled ? 'common.enabled' : 'common.disabled');
+            chkbox.closest("tr").toggleClass("disabled");
+            successNoty(enabled ? "common.enabled" : "common.disabled");
         },
         error: function () {
             $(chkbox).prop("checked", !enabled);
@@ -23,7 +23,7 @@ function enable(chkbox, id) {
 
 // $(document).ready(function () {
 $(function () {
-    datatableApi = $('#datatable').DataTable({
+    datatableApi = $("#datatable").DataTable({
         "ajax": {
             "url": ajaxUrl,
             "dataSrc": ""
@@ -37,8 +37,8 @@ $(function () {
             {
                 "data": "email",
                 "render": function (data, type, row) {
-                    if (type === 'display') {
-                        return '<a href="mailto:' + data + '">' + data + '</a>';
+                    if (type === "display") {
+                        return "<a href='mailto:" + data + "'>" + data + "</a>";
                     }
                     return data;
                 }
@@ -49,8 +49,8 @@ $(function () {
             {
                 "data": "enabled",
                 "render": function (data, type, row) {
-                    if (type === 'display') {
-                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
+                    if (type === "display") {
+                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='enable($(this)," + row.id + ");'/>";
                     }
                     return data;
                 }
@@ -58,8 +58,8 @@ $(function () {
             {
                 "data": "registered",
                 "render": function (date, type, row) {
-                    if (type === 'display') {
-                        return '<span>' + date.substring(0, 10) + '</span>';
+                    if (type === "display") {
+                        return date.substring(0, 10);
                     }
                     return date;
                 }

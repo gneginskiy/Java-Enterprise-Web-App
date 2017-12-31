@@ -45,12 +45,11 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal update(Meal meal, int userId) {
-        Assert.notNull(meal, "meal must not be null");
         return checkNotFoundWithId(repository.save(meal, userId), meal.getId());
     }
 
     @Override
-    public Meal save(Meal meal, int userId) {
+    public Meal create(Meal meal, int userId) {
         Assert.notNull(meal, "meal must not be null");
         return repository.save(meal, userId);
     }

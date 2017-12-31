@@ -53,12 +53,17 @@ public class JpaUserRepositoryImpl implements UserRepository {
         Query query = em.createQuery("DELETE FROM User u WHERE u.id=:id");
         return query.setParameter("id", id).executeUpdate() != 0;
 */
-        return em.createNamedQuery(User.DELETE).setParameter("id", id).executeUpdate() != 0;
+        return em.createNamedQuery(User.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
     public User getByEmail(String email) {
-        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email).getResultList();
+        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class)
+                .setParameter(1, email)
+                .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
+                .getResultList();
         return DataAccessUtils.singleResult(users);
     }
 

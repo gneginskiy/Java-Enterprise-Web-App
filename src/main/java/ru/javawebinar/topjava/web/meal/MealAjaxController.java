@@ -1,13 +1,23 @@
 package ru.javawebinar.topjava.web.meal;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.ValidationUtil;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,10 +25,21 @@ import java.util.List;
 @RequestMapping(value = "/ajax/profile/meals")
 public class MealAjaxController extends AbstractMealController {
 
+    ExceptionInfoHandler exceptionInfoHandler = new ExceptionInfoHandler();
+
+
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(View.JsonUI.class)
     public List<MealWithExceed> getAll() {
         return super.getAll();
+    }
+
+    @Override
+    @GetMapping(value = "/{id}")
+    @JsonView(View.JsonUI.class)
+    public Meal get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 
     @Override
@@ -28,18 +49,17 @@ public class MealAjaxController extends AbstractMealController {
     }
 
     @PostMapping
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
-                               @RequestParam("description") String description,
-                               @RequestParam("calories") int calories) {
-        Meal meal = new Meal(id, dateTime, description, calories);
+    public void createOrUpdate(@Validated(View.ValidatedUI.class) Meal meal) {
         if (meal.isNew()) {
             super.create(meal);
+        } else {
+            super.update(meal, meal.getId());
         }
     }
 
     @Override
     @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(View.JsonUI.class)
     public List<MealWithExceed> getBetween(
             @RequestParam(value = "startDate", required = false) LocalDate startDate,
             @RequestParam(value = "startTime", required = false) LocalTime startTime,
@@ -47,4 +67,9 @@ public class MealAjaxController extends AbstractMealController {
             @RequestParam(value = "endTime", required = false) LocalTime endTime) {
         return super.getBetween(startDate, startTime, endDate, endTime);
     }
+
+    /*@ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorInfo> invalidFieldsHandle(HttpServletRequest req, NotFoundException e) {
+        return new ResponseEntity<ErrorInfo>(exceptionInfoHandler.handleError(req,e),HttpStatus.UNPROCESSABLE_ENTITY);
+    }*/
 }

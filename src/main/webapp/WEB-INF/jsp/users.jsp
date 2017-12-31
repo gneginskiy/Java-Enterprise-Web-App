@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -11,23 +12,20 @@
 
 <div class="jumbotron">
     <div class="container">
-        <div class="shadow">
-            <h3><spring:message code="users.title"/></h3>
+            <h3><spring:message code="user.title"/></h3>
             <br/>
-            <div class="view-box">
                 <a class="btn btn-primary" onclick="add()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <spring:message code="common.add"/>
                 </a>
-
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
-                        <th><spring:message code="users.name"/></th>
-                        <th><spring:message code="users.email"/></th>
-                        <th><spring:message code="users.roles"/></th>
-                        <th><spring:message code="users.active"/></th>
-                        <th><spring:message code="users.registered"/></th>
+                        <th><spring:message code="user.name"/></th>
+                        <th><spring:message code="user.email"/></th>
+                        <th><spring:message code="user.roles"/></th>
+                        <th><spring:message code="user.active"/></th>
+                        <th><spring:message code="user.registered"/></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -35,9 +33,6 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
-<jsp:include page="fragments/footer.jsp"/>
 
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
@@ -51,26 +46,26 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><spring:message code="users.name"/></label>
+                        <label for="name" class="control-label col-xs-3"><spring:message code="user.name"/></label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="users.name"/>">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="user.name"/>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3"><spring:message code="users.email"/></label>
+                        <label for="email" class="control-label col-xs-3"><spring:message code="user.email"/></label>
 
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="<spring:message code="users.email"/>">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="<spring:message code="user.email"/>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3"><spring:message code="users.password"/></label>
+                        <label for="password" class="control-label col-xs-3"><spring:message code="user.password"/></label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="users.password"/>">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="user.password"/>">
                         </div>
                     </div>
 
@@ -86,14 +81,11 @@
         </div>
     </div>
 </div>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
+<jsp:include page="fragments/i18n.jsp"/>
 <script type="text/javascript">
-    var i18n = [];
-    i18n["addTitle"] = '<spring:message code="users.add"/>';
-    i18n["editTitle"] = '<spring:message code="users.edit"/>';
-
-    <c:forEach var='key' items='<%=new String[]{"common.deleted","common.saved","common.enabled","common.disabled","common.errorStatus"}%>'>
-    i18n['${key}'] = '<spring:message code="${key}"/>';
-    </c:forEach>
+    i18n["addTitle"] = '<spring:message code="user.add"/>';
+    i18n["editTitle"] = '<spring:message code="user.edit"/>';
 </script>
 </html>

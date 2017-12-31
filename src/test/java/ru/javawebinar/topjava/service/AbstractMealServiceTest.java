@@ -24,7 +24,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
+        MATCHER.assertListEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
     @Test
@@ -34,10 +34,10 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testCreate() throws Exception {
         Meal created = getCreated();
-        service.save(created, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
+        service.create(created, USER_ID);
+        MATCHER.assertListEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
     @Test
@@ -68,12 +68,12 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        MATCHER.assertCollectionEquals(MEALS, service.getAll(USER_ID));
+        MATCHER.assertListEquals(MEALS, service.getAll(USER_ID));
     }
 
     @Test
     public void testGetBetween() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
+        MATCHER.assertListEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
                 service.getBetweenDates(
                         LocalDate.of(2015, Month.MAY, 30),
                         LocalDate.of(2015, Month.MAY, 30), USER_ID));
@@ -82,9 +82,9 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     @Test
     public void testValidation() throws Exception {
         Assume.assumeTrue(isJpaBased());
-        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "  ", 300), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new Meal(null, null, "Description", 300), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 9), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 5001), USER_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "  ", 300), USER_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, null, "Description", 300), USER_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 9), USER_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 5001), USER_ID), ConstraintViolationException.class);
     }
 }

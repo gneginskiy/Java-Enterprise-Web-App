@@ -1,18 +1,16 @@
 package ru.javawebinar.topjava.to;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import ru.javawebinar.topjava.util.UserUtil;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class UserTo implements Serializable {
+public class UserTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     @NotBlank
     private String name;
@@ -21,7 +19,7 @@ public class UserTo implements Serializable {
     @NotBlank
     private String email;
 
-    @Size(min = 5, max = 64, message = " must between 5 and 64 characters")
+    @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
     private String password;
 
     @Range(min = 10, max = 10000)
@@ -32,19 +30,11 @@ public class UserTo implements Serializable {
     }
 
     public UserTo(Integer id, String name, String email, String password, int caloriesPerDay) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
         this.caloriesPerDay = caloriesPerDay;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getPassword() {
@@ -71,8 +61,8 @@ public class UserTo implements Serializable {
         this.email = email;
     }
 
-    public boolean isNew() {
-        return id == null;
+    public void setCaloriesPerDay(Integer caloriesPerDay) {
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     public Integer getCaloriesPerDay() {

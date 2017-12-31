@@ -1,15 +1,17 @@
 package ru.javawebinar.topjava.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 import static ru.javawebinar.topjava.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
@@ -23,7 +25,7 @@ import static ru.javawebinar.topjava.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
 @Entity
 //@NamedEntityGraph(name = User.GRAPH_WITH_MEALS, attributeNodes = {@NamedAttributeNode("meals")})
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends NamedEntity {
+public class User extends AbstractNamedEntity {
 
 //    public static final String GRAPH_WITH_MEALS = "User.withMeals";
 
@@ -38,13 +40,17 @@ public class User extends NamedEntity {
 
     @Column(name = "password", nullable = false)
     @NotBlank
-    @Length(min = 5)
+    @Size(min = 5)
+    // https://stackoverflow.com/a/12505165/548473
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -72,8 +78,8 @@ public class User extends NamedEntity {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getCaloriesPerDay(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, DEFAULT_CALORIES_PER_DAY, true, new Date(), EnumSet.of(role, roles));
+    public User(Integer id, String name, String email, String password, int caloriesPerDay, Role role, Role... roles) {
+        this(id, name, email, password, caloriesPerDay, true, new Date(), EnumSet.of(role, roles));
     }
 
     public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Date registered, Collection<Role> roles) {

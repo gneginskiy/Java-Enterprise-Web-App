@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 
 public class MealsUtil {
 
+    private MealsUtil() {
+    }
+
     public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
     }
@@ -39,6 +42,26 @@ public class MealsUtil {
             }
         });
         return mealsWithExceeded;
+    }
+
+    /*
+     *  Advanced solution in one return (listDayMeals can be inline).
+     *  Streams are not multiplied, so complexity is still O(N)
+     *  Execution time is increased as for every day we create 2 additional streams
+     */
+    public static List<MealWithExceed> getFilteredWithExceededInOneReturn(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+
+        Collection<List<Meal>> listDayMeals = meals.stream()
+                .collect(Collectors.groupingBy(Meal::getDate)).values();
+
+        return listDayMeals
+                .stream().flatMap(dayMeals -> {
+                    boolean exceed = dayMeals.stream().mapToInt(Meal::getCalories).sum() > caloriesPerDay;
+                    return dayMeals.stream().filter(meal ->
+                            DateTimeUtil.isBetween(meal.getTime(), startTime, endTime))
+                            .map(meal -> createWithExceed(meal, exceed));
+                })
+                .collect(Collectors.toList());
     }
 
     public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {

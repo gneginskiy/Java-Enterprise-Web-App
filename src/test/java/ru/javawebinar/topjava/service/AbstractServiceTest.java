@@ -19,6 +19,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.ActiveDbProfileResolver;
 import ru.javawebinar.topjava.Profiles;
+import ru.javawebinar.topjava.util.ValidationUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +33,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
+    private static final Logger log = LoggerFactory.getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
 
@@ -49,7 +50,7 @@ abstract public class AbstractServiceTest {
         protected void finished(long nanos, Description description) {
             String result = String.format("%-95s %7d", description.getDisplayName(), TimeUnit.NANOSECONDS.toMillis(nanos));
             results.append(result).append('\n');
-            LOG.info(result + " ms\n");
+            log.info(result + " ms\n");
         }
     };
 
@@ -65,11 +66,11 @@ abstract public class AbstractServiceTest {
 
     @AfterClass
     public static void printResult() {
-        LOG.info("\n---------------------------------" +
-                "\nTest                 Duration, ms" +
-                "\n---------------------------------\n" +
+        log.info("\n-------------------------------------------------------------------------------------------------------" +
+                 "\nTest                                                                                       Duration, ms" +
+                 "\n-------------------------------------------------------------------------------------------------------\n" +
                 results +
-                "---------------------------------\n");
+                   "-------------------------------------------------------------------------------------------------------\n");
         results.setLength(0);
     }
 
@@ -79,18 +80,8 @@ abstract public class AbstractServiceTest {
             runnable.run();
             Assert.fail("Expected " + exceptionClass.getName());
         } catch (Exception e) {
-            Assert.assertThat(getRootCause(e), instanceOf(exceptionClass));
+            Assert.assertThat(ValidationUtil.getRootCause(e), instanceOf(exceptionClass));
         }
     }
 
-    //  http://stackoverflow.com/a/28565320/548473
-    public static Throwable getRootCause(Throwable t) {
-        Throwable result = t;
-        Throwable cause;
-
-        while (null != (cause = result.getCause()) && (result != cause)) {
-            result = cause;
-        }
-        return result;
-    }
 }

@@ -12,11 +12,12 @@ import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.util.UserUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.UserUtil.prepareToSave;
+import static ru.javawebinar.topjava.util.UserUtil.updateFromTo;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
@@ -32,9 +33,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
-    public User save(User user) {
+    public User create(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user));
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -64,17 +65,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        repository.save(user);
+        repository.save(prepareToSave(user));
     }
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
     @Override
     public void update(UserTo userTo) {
-        User user = get(userTo.getId());
-        repository.save(UserUtil.updateFromTo(user, userTo));
+        User user = updateFromTo(get(userTo.getId()), userTo);
+        repository.save(prepareToSave(user));
     }
-
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
@@ -93,11 +93,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User u = repository.getByEmail(email.toLowerCase());
-        if (u == null) {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
-        return new AuthorizedUser(u);
+        return new AuthorizedUser(user);
     }
 
     @Override
